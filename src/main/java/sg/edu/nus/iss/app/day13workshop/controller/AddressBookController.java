@@ -28,15 +28,19 @@ public class AddressBookController {
     @Value("${day13workshop.default.data.dir}")
     private String defaultDataDir;
 
+    // Step 1: Use get to add the model object to the form
     @GetMapping
     public String showAddressBookForm(Model model){
         model.addAttribute("contact", new Contact());
         return "addressbook";
     }
 
+    // Step 2: Take in data from form (param contact = object ${contact})
     @PostMapping
     public String saveContact(@Valid Contact contact, BindingResult binding
         , Model model) {
+        // Use syntactic validation (jakarta validation)
+        // If there are errors, return to the form page
         if (binding.hasErrors()){
             return "addressbook";
         }
@@ -45,13 +49,13 @@ public class AddressBookController {
         return "showcontact";
     }
 
+    // Get the contact with the contact ID in the url
     @GetMapping(path="{contactId}")
     public String getContactId(Model model, @PathVariable String contactId){
-        model.addAttribute("contact", new Contact());
         ctcs.getContactById(model, contactId, appArgs, defaultDataDir);
         return "showcontact";
     }
-
+    
     @GetMapping(path="/list")
     public String getAllContacts(Model model) {
         ctcs.getAllContacts(model, appArgs, defaultDataDir);

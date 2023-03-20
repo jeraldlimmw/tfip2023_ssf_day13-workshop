@@ -24,14 +24,17 @@ public class Day13WorkshopApplication {
 
 		// to parse cmd-line arguments to the program
 		DefaultApplicationArguments appArgs = new DefaultApplicationArguments(args);
-		// finds dataDir in cmd line arguments, takes values
+		// finds dataDir in cmd line arguments using key "dataDir"
+		// returns a list of String values
 		List<String> opsVal = appArgs.getOptionValues("dataDir");
 		System.out.println("before dir");
+		
+		// if data directory given in args, use helper createDir to check & create dir
 		if(null != opsVal){
 			// since we did import static, we can assume createDir method is in here
 			logger.info("" + (String)opsVal.get(0)); //get first value
 			System.out.println("inside dir");
-			createDir((String)opsVal.get(0));//check & create dir
+			createDir((String)opsVal.get(0));
 		} else { //no dir path provided, exit
 			System.out.println("exit");
 			System.exit(1);

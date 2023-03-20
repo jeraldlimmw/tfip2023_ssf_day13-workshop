@@ -10,21 +10,24 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+/* 
+This is a helper class to create directory on the local machine at given path
+if the file does not exist
+*/
 public class IOUtil {
+    // logger is an industry standard procedure. NOT ASSESSED
     private static final Logger logger = LoggerFactory.getLogger(IOUtil.class);
 
-    /* 
-    helper method to create directory on the local machine at given path
-    */
     public static void createDir(String path) {
         File dir = new File(path);
         // check file exists -> if no, create file -> return boolean file created
-        boolean isDirExist = dir.mkdir(); 
-        logger.info("Does Dir exist? " + isDirExist);
+        boolean isDirCreated = dir.mkdir(); 
+        logger.info("Does Dir exist? " + isDirCreated);
 
         // check if OS is not Windows i.e. mac/ubuntu
         // set permissions for file if it is successfully created
-        if(isDirExist) {
+        if(isDirCreated) {
             String osName = System.getProperty("os.name");
             if(!osName.contains("Windows")){
                 String permission = "rwxrwx---"; //owner & grp mem can read, write and exc

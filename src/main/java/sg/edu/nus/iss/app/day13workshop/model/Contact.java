@@ -14,7 +14,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
-// Serializable allows you to write ...
+// Traditionally, all Java obj must be serializable
+// Serializable allows you to write things on a particular medium (e.g. network)
 public class Contact implements Serializable {
     // members and validations
     @NotNull(message = "This is a mandatory field")
@@ -40,8 +41,9 @@ public class Contact implements Serializable {
     @Max(value=100, message="Must be below 100 years old")
     private int age;
 
+    // Constructors
     public Contact(){
-        this.id = generateId(8);
+        this.id = generateId(8); //only generates id
     }
 
     public Contact(String name, String email, String phoneNumber, LocalDate dateOfBirth) {
@@ -60,6 +62,8 @@ public class Contact implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
+    // synchronized = queues up the calls and blocks concurrent calls on the method
+    // method to generate a secure ID of x Char
     private synchronized String generateId(int numOfChar) {
         SecureRandom sr = new SecureRandom(); //generate cryptographically secure rand num
         StringBuilder sb = new StringBuilder();
@@ -96,6 +100,8 @@ public class Contact implements Serializable {
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
+
+    // Once DOB is in, must calculate age to ensure valid age 11-100yo
     public void setDateOfBirth(LocalDate dateOfBirth) {
         int calculatedAge = 0;
         if (dateOfBirth != null){
@@ -104,6 +110,7 @@ public class Contact implements Serializable {
         this.dateOfBirth = dateOfBirth;
         this.age = calculatedAge;
     }
+
     public int getAge() {
         return age;
     }
