@@ -23,7 +23,7 @@ public class IOUtil {
         File dir = new File(path);
         // check file exists -> if no, create file -> return boolean file created
         boolean isDirCreated = dir.mkdir(); 
-        logger.info("Does Dir exist? " + isDirCreated);
+        logger.info("Was Dir created? " + isDirCreated);
 
         // check if OS is not Windows i.e. mac/ubuntu
         // set permissions for file if it is successfully created
